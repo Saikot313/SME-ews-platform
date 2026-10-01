@@ -55,11 +55,6 @@ def build_table(rows, header):
 
 def generate_pdf_for_borrower(borrower_id, borrower_name, industry,
                               fiscal_year, fin_df, layout_variant=0):
-    """
-    Generate a single PDF for one borrower-year.
-    layout_variant: 0 = BalanceSheet first, 1 = IncomeStatement first,
-                    2 = Combined single table
-    """
     file_path = os.path.join(
         OUTPUT_DIR, f"{borrower_id}_{fiscal_year}.pdf"
     )
@@ -70,7 +65,7 @@ def generate_pdf_for_borrower(borrower_id, borrower_name, industry,
     )
     elements = []
 
-    # ---- Header ----
+    
     elements.append(Paragraph(borrower_name, TITLE_STYLE))
     elements.append(Paragraph(
         f"{industry} | Financial Statements | FY {fiscal_year}",
@@ -117,7 +112,7 @@ def generate_pdf_for_borrower(borrower_id, borrower_name, industry,
             build_rows(bs_df), ["Particulars", "Amount (BDT)"]
         ))
 
-    else:  # variant 2: combined
+    else:  
         combined = pd.concat([is_df, bs_df], ignore_index=True)
         elements.append(Paragraph("Financial Statements", STYLES["Heading2"]))
         elements.append(build_table(
