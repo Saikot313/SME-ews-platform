@@ -1,0 +1,117 @@
+{
+    "rules": [
+        {
+            "rule_id": "R001",
+            "rule_name": "Payment Delay",
+            "signal_type": "PaymentDelay",
+            "enabled": true,
+            "params": {
+                "dpd_threshold": 15,
+                "lookback_days": 180,
+                "consecutive_occurrences": 2
+            },
+            "severity": "Medium",
+            "weight": 20,
+            "description": "Borrower has 15+ days past due on 2+ occasions in last 6 months"
+        },
+        {
+            "rule_id": "R002",
+            "rule_name": "Transaction Drop",
+            "signal_type": "TxnDrop",
+            "enabled": true,
+            "params": {
+                "drop_pct": 0.40,
+                "lookback_months": 3,
+                "baseline_months": 6
+            },
+            "severity": "High",
+            "weight": 25,
+            "description": "Monthly credit transactions dropped 40%+ vs 6-month baseline"
+        },
+        {
+            "rule_id": "R003",
+            "rule_name": "Cheque Bounce",
+            "signal_type": "ChequeBounce",
+            "enabled": true,
+            "params": {
+                "count_threshold": 2,
+                "lookback_months": 6
+            },
+            "severity": "High",
+            "weight": 25,
+            "description": "2+ cheque bounces in last 6 months"
+        },
+        {
+            "rule_id": "R004",
+            "rule_name": "CIB Query Spike",
+            "signal_type": "CIBSpike",
+            "enabled": true,
+            "params": {
+                "query_count": 5,
+                "lookback_months": 3,
+                "institution_threshold": 3
+            },
+            "severity": "Medium",
+            "weight": 15,
+            "description": "5+ CIB queries from 3+ institutions in last 3 months"
+        },
+        {
+            "rule_id": "R005",
+            "rule_name": "Balance Erosion",
+            "signal_type": "BalanceErosion",
+            "enabled": true,
+            "params": {
+                "drop_pct": 0.50,
+                "lookback_months": 3,
+                "min_baseline_balance": 100000
+            },
+            "severity": "High",
+            "weight": 20,
+            "description": "Average monthly balance dropped 50%+ vs 3-month baseline"
+        },
+        {
+            "rule_id": "R006",
+            "rule_name": "Overdraft Utilization",
+            "signal_type": "ODUtilization",
+            "enabled": true,
+            "params": {
+                "utilization_threshold": 0.90,
+                "consecutive_months": 2
+            },
+            "severity": "Medium",
+            "weight": 15,
+            "description": "OD utilized above 90% for 2+ consecutive months"
+        },
+        {
+            "rule_id": "R007",
+            "rule_name": "Sector Distress",
+            "signal_type": "SectorDistress",
+            "enabled": true,
+            "params": {
+                "sector_npl_increase_pct": 0.20,
+                "lookback_quarters": 2
+            },
+            "severity": "Low",
+            "weight": 10,
+            "description": "Borrower's industry NPL increased 20%+ in last 2 quarters"
+        }
+    ],
+    "zone_thresholds": {
+        "Green": [
+            0,
+            30
+        ],
+        "Amber": [
+            31,
+            60
+        ],
+        "Red": [
+            61,
+            100
+        ]
+    },
+    "decay": {
+        "enabled": true,
+        "half_life_days": 90
+    }
+}
