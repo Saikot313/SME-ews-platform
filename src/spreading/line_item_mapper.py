@@ -3,8 +3,9 @@ import json
 import os
 import pandas as pd
 from rapidfuzz import fuzz, process
-from config import (
-    BALANCE_SHEET_ITEMS, INCOME_STATEMENT_ITEMS,
+from data_generator.config import (
+    BALANCE_SHEET_ITEMS,
+    INCOME_STATEMENT_ITEMS,
     RAW_LINE_ITEM_VARIANTS
 )
 
@@ -58,7 +59,7 @@ def map_dataframe(df: pd.DataFrame):
 
 if __name__ == "__main__":
     from extract_pdf import parse_pdf
-    sample = "../../data/raw/pdf_statements/SME1000_2023.pdf"
+    sample = "data/raw/pdf_statements/SME1000_2023.pdf"
     raw_df = parse_pdf(sample)
     mapped = map_dataframe(raw_df)
     print(mapped.to_string())
